@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const cheerio = require('cheerio');
+const request = require('request');
 
 async function getArchives() {
     await page.goto('https://virtual.uniara.com.br/alunos/consultas/arquivos/');
@@ -38,16 +39,23 @@ module.exports =  {
                     }
                 });
             // finding archives in page
-            await page.goto('https://virtual.uniara.com.br/alunos/consultas/arquivos/');
-            const archivesHtml = await page.content();
-            const _$ = cheerio.load(archivesHtml);
-            const tableArchive = _$("body > table > tbody > tr:nth-child(7) > td > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > table > tbody");
-            
-            console.log(tableArchive);
-            //await browser.close();
+                await page.goto('https://virtual.uniara.com.br/alunos/consultas/arquivos/');
+                const archivesHtml = await page.content();
+                const _$ = cheerio.load(archivesHtml);
+                const tableArchive = _$("body > table > tbody > tr:nth-child(7) > td > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > table > tbody > tr > td > a");
+                var links = [];
+                for(var x = 0; x < tableArchive.length; x++) {
+                    const link = "https://virtual.uniara.com.br/" + tableArchive[`${x}`].attribs.href.slice(20).slice(0, -2);
+                    links.push({
+                        disciplina: "Arquivo "+(x+1),
+                        link,
+                    })
+                }
+            await browser.close();
             return ({
                 status: 1,
                 html,
+                links,
             });
         } catch (error) {
             return({
@@ -60,7 +68,7 @@ module.exports =  {
 
     getName: async(html) => {
         const $ = cheerio.load(html);
-        const name = $("body > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(6) > table > tbody > tr > td:nth-child(1) > font > b").text().slice(11);
+        const name = $("body > table > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(6) > table > tbody > tr > td:nth-child(1) > font > b").text().slice(8);
         return name;
     },
 
