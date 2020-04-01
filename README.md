@@ -8,13 +8,13 @@ API response user info formated in json, this application is unofficial API, stu
 
 ## ✍ Application functions
 
-[x] - Save Photo user in temporary folder
-[X] - Return Full name
+[x] - Save Photo user in temporary folder<br>
+[X] - Return Full name<br>
 
 ## 👆 TODO functions
 
-[ ] - Return all documents links and save all in server
-[ ] - Connect a key between nameDocument and courseName in database
+[ ] - Return all documents links and save all in server<br>
+[ ] - Connect a key between nameDocument and courseName in database<br>
 
 ## ⚠ Warning
 
