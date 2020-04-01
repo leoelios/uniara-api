@@ -16,6 +16,6 @@ API response user info formated in json, this application is unofficial API, stu
 [ ] - Return all documents links and save all in server<br>
 [ ] - Connect a key between nameDocument and courseName in database<br>
 
-## ⚠ Warning
+## :warning: Warning
 
 Make yourself at home. This project is free and open for community, give suggestions. It simple, open a new pull request.
